@@ -24,11 +24,19 @@ DATA_MODULE_TEMPLATE = <<~ERB
   end
 ERB
 
+def silence_warnings
+  old_verbose = $VERBOSE
+  $VERBOSE = nil
+  yield
+ensure
+  $VERBOSE = old_verbose
+end
+
 task :update do
   puts "* fetching TLD database"
   raw_data = Faraday.get("https://data.iana.org/TLD/tlds-alpha-by-domain.txt").body
 
-  puts "* updating data.rb"
+  puts "* generating code"
   tlds = raw_data
          .split("\n")
          .reject { _1.start_with?("#") }
@@ -41,7 +49,33 @@ task :update do
     iana_version:,
     tlds:
   )
-  File.open(File.expand_path("../lib/tldv/data.rb", __dir__), "w") do |f|
+
+  # ensure the file is only updated if the set of TLDs changed
+  tldv_data_path = File.expand_path("../lib/tldv/data.rb", __dir__)
+
+  silence_warnings { load tldv_data_path }
+  old_version = TLDv::Data::VERSION
+  old_tlds = TLDv::Data::TLDS
+
+  silence_warnings { eval code } # rubocop:disable Security/Eval
+  new_version = TLDv::Data::VERSION
+  if old_version == new_version
+    puts "* version stayed the same, ignoring update"
+    next
+  end
+
+  new_tlds = TLDv::Data::TLDS
+  puts "* version #{old_version} -> #{new_version}"
+  tld_diff = new_tlds ^ old_tlds
+  if tld_diff.size.zero?
+    puts "-- no changes"
+    next
+  end
+  puts "-- changeset:"
+  tld_diff.each { puts "   - #{_1}" }
+
+  puts "* updating data.rb"
+  File.open(tldv_data_path, "w") do |f|
     f.puts code
   end
 end
