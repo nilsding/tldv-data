@@ -43,7 +43,7 @@ jobs:
             git push -fu origin HEAD
 
             echo "* creating pull request"
-            gh pr create --title "update data to version ${new_version}" --body "This updates the TLD data to ${new_version}."
+            gh pr create --title "update data to version ${new_version}" --body "This updates the TLD data to ${new_version}." --assignee nilsding --reviewer nilsding
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
