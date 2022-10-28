@@ -1,0 +1,49 @@
+---
+# scheduled job that updates the database daily and creates a PR if it changed.
+# publishing new versions should be done manually
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # every day at 00:00 UTC
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+    env:
+      # used by setup-ruby with bundler-cache
+      BUNDLE_JOBS: '4'
+      BUNDLE_RETRY: '3'
+
+    steps:
+      - uses: actions/checkout@v3.1.0
+
+      - name: set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Update data
+        run: |
+          bundle exec rake update
+
+          data_file=./lib/tldv/data.rb
+          if [ $(git status --porcelain "$data_file" | wc -l) -gt 0 ]; then
+            new_version=$(grep VERSION "$data_file" | cut -d\" -f2 | cut -d. -f3)
+
+            echo "* committing changes ..."
+            git switch -c "update-to-${new_version}"
+            git config user.name 'Georg Gadinger'
+            git config user.email 'nilsding@nilsding.org'
+            git add "$data_file"
+            git commit -m "update data to version ${new_version}"
+
+            echo "* pushing ..."
+            git push -fu origin HEAD
+
+            echo "* creating pull request"
+            gh pr create --title "update data to version ${new_version}" --body "This updates the TLD data to ${new_version}."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
