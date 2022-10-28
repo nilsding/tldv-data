@@ -12,7 +12,6 @@ module TLDv
       %w[
         aaa
         aarp
-        abarth
         abb
         abbott
         abbvie
