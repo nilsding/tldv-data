@@ -30,13 +30,14 @@ jobs:
 
           data_file=./lib/tldv/data.rb
           if [ $(git status --porcelain "$data_file" | wc -l) -gt 0 ]; then
+            bundle install
             new_version=$(grep VERSION "$data_file" | cut -d\" -f2 | cut -d. -f3)
 
             echo "* committing changes ..."
             git switch -c "update-to-${new_version}"
             git config user.name 'Georg Gadinger'
             git config user.email 'nilsding@nilsding.org'
-            git add "$data_file"
+            git add "$data_file" Gemfile.lock
             git commit -m "update data to version ${new_version}"
 
             echo "* pushing ..."
