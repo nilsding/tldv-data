@@ -30,6 +30,7 @@ jobs:
 
           data_file=./lib/tldv/data.rb
           if [ $(git status --porcelain "$data_file" | wc -l) -gt 0 ]; then
+            bundle config unset deployment
             bundle install
             new_version=$(grep VERSION "$data_file" | cut -d\" -f2 | cut -d. -f3)
 
