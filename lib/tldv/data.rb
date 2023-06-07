@@ -6,13 +6,12 @@ require "set"
 
 module TLDv
   module Data # rubocop:disable Metrics/ModuleLength
-    VERSION = "1.0.2023031800"
+    VERSION = "1.0.2023060600"
 
     TLDS = Set.new(
       %w[
         aaa
         aarp
-        abarth
         abb
         abbott
         abbvie
@@ -47,7 +46,6 @@ module TLDv
         airtel
         akdn
         al
-        alfaromeo
         alibaba
         alipay
         allfinanz
@@ -421,7 +419,6 @@ module TLDv
         ferrari
         ferrero
         fi
-        fiat
         fidelity
         fido
         film
@@ -688,7 +685,6 @@ module TLDv
         lamborghini
         lamer
         lancaster
-        lancia
         land
         landrover
         lanxess
@@ -762,7 +758,6 @@ module TLDv
         markets
         marriott
         marshalls
-        maserati
         mattel
         mba
         mc
