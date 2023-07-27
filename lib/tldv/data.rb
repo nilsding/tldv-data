@@ -6,7 +6,7 @@ require "set"
 
 module TLDv
   module Data # rubocop:disable Metrics/ModuleLength
-    VERSION = "1.0.2023070801"
+    VERSION = "1.0.2023072502"
 
     TLDS = Set.new(
       %w[
@@ -1171,7 +1171,6 @@ module TLDv
         tiaa
         tickets
         tienda
-        tiffany
         tips
         tires
         tirol
