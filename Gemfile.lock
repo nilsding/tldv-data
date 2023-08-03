@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tldv-data (1.0.2023072502)
+    tldv-data (1.0.2023080200)
 
 GEM
   remote: https://rubygems.org/
