@@ -6,7 +6,7 @@ require "set"
 
 module TLDv
   module Data # rubocop:disable Metrics/ModuleLength
-    VERSION = "1.0.2023080900"
+    VERSION = "1.0.2023101900"
 
     TLDS = Set.new(
       %w[
@@ -253,7 +253,6 @@ module TLDv
         citi
         citic
         city
-        cityeats
         ck
         cl
         claims
@@ -455,7 +454,6 @@ module TLDv
         fresenius
         frl
         frogans
-        frontdoor
         frontier
         ftr
         fujitsu
