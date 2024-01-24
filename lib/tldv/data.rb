@@ -6,7 +6,7 @@ require "set"
 
 module TLDv
   module Data # rubocop:disable Metrics/ModuleLength
-    VERSION = "1.0.2023121200"
+    VERSION = "1.0.2024012300"
 
     TLDS = Set.new(
       %w[
@@ -107,7 +107,6 @@ module TLDv
         baby
         baidu
         banamex
-        bananarepublic
         band
         bank
         bar
@@ -866,7 +865,6 @@ module TLDv
         okinawa
         olayan
         olayangroup
-        oldnavy
         ollo
         om
         omega
