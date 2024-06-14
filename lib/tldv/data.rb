@@ -6,7 +6,7 @@ require "set"
 
 module TLDv
   module Data # rubocop:disable Metrics/ModuleLength
-    VERSION = "1.0.2024040400"
+    VERSION = "1.0.2024061300"
 
     TLDS = Set.new(
       %w[
@@ -813,7 +813,6 @@ module TLDv
         nab
         nagoya
         name
-        natura
         navy
         nba
         nc
