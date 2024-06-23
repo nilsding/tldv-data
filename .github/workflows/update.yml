@@ -36,7 +36,7 @@ jobs:
 
             echo "* committing changes ..."
             git switch -c "update-to-${new_version}"
-            git config user.name 'Georg Gadinger'
+            git config user.name 'Jyrki Gadinger'
             git config user.email 'nilsding@nilsding.org'
             git add "$data_file" Gemfile.lock
             git commit -m "update data to version ${new_version}"

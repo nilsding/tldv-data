@@ -5,7 +5,7 @@ require_relative "lib/tldv/data"
 Gem::Specification.new do |spec|
   spec.name = "tldv-data"
   spec.version = TLDv::Data::VERSION
-  spec.authors = ["Georg Gadinger"]
+  spec.authors = ["Jyrki Gadinger"]
   spec.email = ["nilsding@nilsding.org"]
 
   spec.summary = "TLD data for TLDv"
